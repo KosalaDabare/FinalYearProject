@@ -1,0 +1,33 @@
+The final code was developed for the Arduino UNO to send a signal to the relay once the camera had identified the deformed Yolk.
+void setup() {
+pinMode( LED_BUILTIN , OUTPUT);
+  Serial.begin(9600);
+  pinMode(5, INPUT);
+  pinMode(10, OUTPUT);
+  digitalWrite(10,HIGH);
+  delay(5000);
+  digitalWrite(10,LOW);
+}
+
+int x = 0;
+
+void do_something() {
+  digitalWrite(10,HIGH);
+  delay(500);
+  digitalWrite(10,LOW);
+  Serial.println("done_task");
+  x = "0";
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    x = Serial.read();
+  }
+
+  if (x == '1') {
+    do_something();
+  }
+  else{
+    digitalWrite(10,LOW);
+  }
+}
